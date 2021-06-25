@@ -2,10 +2,11 @@
   roles:
     - "dependencies"
 
+- hosts: db_backends
+  roles:
+    - "db"
+
 - hosts: web_frontends
   roles:
     - "web"
 
-- hosts: db_backends
-  roles:
-    - "db"

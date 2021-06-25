@@ -342,4 +342,10 @@ resource "local_file" "tf_ansible_inventory" {
     filename = "./tf_ansible_inventory"
 }  
 
-
+resource "local_file" "tf_curl_test" {
+    content = <<-DOC
+    #!/usr/bin/bash
+    curl http://${azurerm_public_ip.lb_ip.ip_address}
+    DOC
+    filename = "./tf_curl_test.sh"
+}
