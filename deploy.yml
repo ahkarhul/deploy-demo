@@ -1,0 +1,11 @@
+- hosts: all
+  roles:
+    - "dependencies"
+
+- hosts: web_frontends
+  roles:
+    - "web"
+
+- hosts: db_backends
+  roles:
+    - "db"

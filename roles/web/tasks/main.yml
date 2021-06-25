@@ -1,0 +1,49 @@
+---
+# tasks file for web
+- name: install db apt requirements
+  become: yes
+  apt:
+    name: "{{ item }}"
+    update_cache: yes
+  with_items:
+    - python3-pip
+    - mysql-client-core-5.7
+
+- name: install pip requirements
+  become: yes
+  pip:
+    name: "{{item}}"
+  with_items:
+    - setuptools
+    - mysql-connector-python
+  
+- name: create web directory
+  file:
+    path: "/home/{{ansible_user}}/web"
+    state: directory
+    mode: '0755'
+
+- name: create dummy web data for testing
+  template:
+    src: simple_web.py.j2
+    dest: "/home/{{ansible_user}}/web/simple_web.py"
+
+- name: run python web server
+  become: yes
+  shell: |
+    pkill screen
+    screen -d -m python3 "/home/{{ansible_user}}/web/simple_web.py"
+
+#- name: create dummy web data for testing
+#  template:
+#    src: index.html.j2
+#    dest: "/home/{{ansible_user}}/web/index.html"
+
+#- name: start simple http server in the background
+#  become: yes
+#  shell: |
+#    cd "/home/{{ansible_user}}/web"
+#    pkill screen
+#    screen -d -m python3 -m http.server 80
+
+

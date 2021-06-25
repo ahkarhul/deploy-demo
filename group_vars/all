@@ -1,0 +1,4 @@
+---
+#In production this secret would be vaulted; skipped it for the purposes of a quick demo
+db_pass: test123
+ansible_python_interpreter: /usr/bin/python3
